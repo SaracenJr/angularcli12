@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./component2.component.css']
 })
 export class Component2Component implements OnInit {
-
+    public textInput = '';
   constructor() { }
 
   ngOnInit(): void {
   }
 
 }
+

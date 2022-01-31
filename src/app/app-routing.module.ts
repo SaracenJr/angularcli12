@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {Page1Component} from "./page1/page1.component";
-import {Page2Component} from "./page2/page2.component";
-import {Page3Component} from "./page3/page3.component";
+import {Component1ShellComponent} from "./containers/component1Shell/component1Shell.component";
+import {Component2ShellComponent} from "./containers/component2Shell/component2Shell.component";
 
 const routes: Routes = [
-    { path: 'page1', component: Page1Component },
-    { path: 'page2', component: Page2Component },
-    { path: 'page3', component: Page3Component }
+    { path: 'component1Shell', component: Component1ShellComponent },
+    { path: 'component2Shell', component: Component2ShellComponent },
 ];
 
 @NgModule({

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-component2',
-  templateUrl: './component2.component.html',
-  styleUrls: ['./component2.component.css']
+  templateUrl: './component2Shell.component.html',
+  styleUrls: ['./component2Shell.component.css']
 })
-export class Component2Component implements OnInit {
+export class Component2ShellComponent implements OnInit {
     public textInput = '';
   constructor() { }
 

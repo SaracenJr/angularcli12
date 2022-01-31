@@ -1,0 +1,12 @@
+<p>component1 works!</p>
+<button (click)="onlyActive()">
+    filter
+</button>
+<button (click)="deactivateAll()">
+    deactivate All
+</button>
+<ng-container *ngFor ="let person of personsFiltered">
+    <app-component3 [person]="person" (onActiveChange)="changeActive($event)"></app-component3>
+</ng-container>
+
+

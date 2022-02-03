@@ -1,0 +1,4 @@
+<ng-container *ngFor ="let person of persons">
+    <app-user-card [person]="person" (onActiveChange)="changeActive($event)"></app-user-card>
+</ng-container>
+

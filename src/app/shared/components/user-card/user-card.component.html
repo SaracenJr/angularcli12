@@ -1,0 +1,17 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+            {{ person?.firstName }}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{person?.lastName}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{person?.age}}</p>
+        <p>{{ person?.activated ? 'active': 'non-active'}}</p>
+    </mat-card-content>
+    <button mat-raised-button color="primary" (click)="change(person?.id)" >
+        change
+    </button>
+</mat-card>

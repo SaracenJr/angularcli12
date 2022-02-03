@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {Component1ShellComponent} from "./containers/component1Shell/component1Shell.component";
-import {Component2ShellComponent} from "./containers/component2Shell/component2Shell.component";
+import { UsersListShellComponent } from './modules/users/containers/users-list-shell/users-list-shell.component';
+import {NewUserShellComponent} from './modules/users/containers/new-user-shell/new-user-shell.component'
 
 const routes: Routes = [
-    { path: 'component1Shell', component: Component1ShellComponent },
-    { path: 'component2Shell', component: Component2ShellComponent },
+    { path: 'UsersListShellComponent', component: UsersListShellComponent },
+    { path: 'NewUserShellComponent', component: NewUserShellComponent },
 ];
 
 @NgModule({

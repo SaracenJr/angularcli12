@@ -1,0 +1,7 @@
+<button mat-raised-button color="primary" (click)="onlyActive()">
+    filter
+</button>
+<button mat-raised-button color="primary" (click)="deactivateAll()">
+    deactivate All
+</button>
+<app-users-list class="flex" [persons]="filtered" (onActiveChange)="changeActive($event)"></app-users-list>

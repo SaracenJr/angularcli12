@@ -1,0 +1,23 @@
+<form [formGroup]="profileForm" (ngSubmit)=onSubmit()>
+    <mat-form-field appearance="fill" >
+        <mat-label for="firstName"> First Name:</mat-label>
+        <input matInput type="text" id="firstName" name="firstName"  formControlName="firstName" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label for="lastName">last Name:</mat-label>
+        <input matInput type="text" id="lastName" name="lastName"  formControlName="lastName" required/>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label for="age">Age:</mat-label>
+        <input matInput type="number" id="age" name="age"  formControlName="age" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label for="age">company:</mat-label>
+        <input matInput type="text" id="company" name="company"  formControlName="company" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label for="department">department:</mat-label>
+        <input matInput type="text" id="department" name="department"  formControlName="department" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Save</button>
+</form>

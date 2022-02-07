@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import { Validators } from '@angular/forms';
-import {personInterface} from "../../interfaces/person.interface";
+import {IPerson} from "../../interfaces/person.interface";
 
 @Component({
   selector: 'app-new-user',
@@ -9,7 +9,7 @@ import {personInterface} from "../../interfaces/person.interface";
   styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
-    @Output() formSave = new EventEmitter<personInterface>();
+    @Output() formSave = new EventEmitter<IPerson>();
     profileForm = new FormGroup({
         firstName: new FormControl('', Validators.required),
         lastName: new FormControl('', Validators.required),

@@ -9,7 +9,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 
-import {personInterface} from "../../interfaces/person.interface";
+import {ICard} from "../../../../shared/components/component-card/interfaces/card.interface";
 
 @Component({
     selector: 'app-users-list',
@@ -18,8 +18,9 @@ import {personInterface} from "../../interfaces/person.interface";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersListComponent implements OnInit, OnChanges {
-    @Input() persons: personInterface[] = [];
-    @Output() onActiveChange = new EventEmitter<number>();
+    @Input() cards: ICard[] = [];
+    @Input() favoriteCards: any;
+    @Output() addFavorite = new EventEmitter<number>();
 
     constructor() { }
 
@@ -27,12 +28,9 @@ export class UsersListComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (!changes.persons.firstChange) {
-            console.log('Persons were changed', this.persons);
-        }
     }
 
-    changeActive(id?:number) {
-        this.onActiveChange.emit(id);
+    addToFavorite(id?:number) : void {
+        this.addFavorite.emit(id);
     }
 }

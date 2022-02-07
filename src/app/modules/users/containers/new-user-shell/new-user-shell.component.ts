@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {PersonService} from "../../services/person.service";
-import {personInterface} from "../../interfaces/person.interface";
+import {IPerson} from "../../interfaces/person.interface";
 
 import { Router} from '@angular/router';
 
@@ -19,7 +19,7 @@ export class NewUserShellComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  formSave(form:personInterface){
+  formSave(form:IPerson){
       console.log(form);
       this.persons.newPerson(form);
       this.router.navigate(['UsersListShellComponent']);

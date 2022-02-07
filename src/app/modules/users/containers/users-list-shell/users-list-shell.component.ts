@@ -1,8 +1,9 @@
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, OnInit, QueryList} from '@angular/core';
 
-import {personInterface} from "../../interfaces/person.interface";
+import {IPerson} from "../../interfaces/person.interface";
 import {PersonService} from "../../services/person.service";
-//import {UserCardComponent} from "../../../../shared/components/user-card/user-card.component";
+import {ICard} from "../../../../shared/components/component-card/interfaces/card.interface";
+import {FavoriteService} from "../../../../shared/services/favorite.service";
 
 @Component({
     selector: 'app-users-list-shell',
@@ -11,37 +12,57 @@ import {PersonService} from "../../services/person.service";
 })
 export class UsersListShellComponent implements OnInit {
 
-   // @ViewChildren(UserCardComponent) allCardsComponent!: QueryList<UserCardComponent>;
-
-    public personsFiltered: personInterface[] = [];
-    public isFiltered:boolean = false;
+    public cards: ICard[] = [];
+    public favoritePersons : any;
+    public isFiltered : boolean = false;
 
     constructor(
         public persons: PersonService,
+        public favorites: FavoriteService
     ) { }
 
     ngOnInit(): void {
-        this.personsFiltered = this.persons.getPersons();
+        this.persons.getPersons().subscribe(data => data.forEach((person) => {
+            let card : ICard = {
+                title: person.firstName+' '+person.lastName,
+                subtitle: ''+person.age,
+                firstContent: person.company+', '+person.department,
+                secondContent: person.activated ? 'active': 'non-active',
+                id: person.id
+            };
+            this.cards.push(card)}));
     }
 
-    onlyActive(){
+    addFavorite(id: number) : void{
+        this.favoritePersons = [];
+        this.favorites.add(id, 'person').subscribe(data => data.forEach((fav: {id: number, type: string}) => {
+            if(fav.type === 'person'){
+                this.favoritePersons.push(this.cards.find((card) => card.id === fav.id));
+                console.log('fav:', this.favoritePersons);
+            }
+        }));
+    }
+
+    onlyActive() : void{
         this.isFiltered = !this.isFiltered;
     }
 
-    get filtered() {
+    /*get filtered() {
         return this.isFiltered
             ? this.personsFiltered.filter((person) => person.activated)
             : this.personsFiltered;
-    }
+    }*/
 
-    deactivateAll(){
-        /*let res = this.persons.getPersons();
+
+
+/*    deactivateAll(){
+        /!*let res = this.persons.getPersons();
         res.forEach((person) => {
             if (person.activated && person.age >= 18) {
                 person.activated = false;
             }
         });
-        this.personsFiltered = [...res];*/
+        this.personsFiltered = [...res];*!/
 
         this.personsFiltered.forEach((person) => {
             if (person.activated && person.age >= 18) {
@@ -49,20 +70,12 @@ export class UsersListShellComponent implements OnInit {
             }
         });
 
-        /*this.personsFiltered
+        /!*this.personsFiltered
             .filter((person) => person.activated && person.age >= 18)
-            .forEach((person) => this.changeActive(person.id));*/
+            .forEach((person) => this.changeActive(person.id));*!/
 
         console.log(this.personsFiltered);
-    }
+    }*/
 
-    changeActive(id: number){
-        let p = this.personsFiltered.find((person) => person.id === id);
-        if (p && p.activated) {
-            p.activated = false;
-        }else if(p && !p.activated){
-            p.activated = true;
-        }
-    }
 
 }

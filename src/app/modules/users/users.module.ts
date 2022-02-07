@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { UsersListShellComponent } from './containers/users-list-shell/users-list-shell.component';
 import {UsersListComponent} from './components/users-list/users-list.component';
+import { NewUserShellComponent } from './containers/new-user-shell/new-user-shell.component';
+import { NewUserComponent } from './components/new-user/new-user.component';
 
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {SharedModule} from '../../shared/shared.module';
-import { NewUserShellComponent } from './containers/new-user-shell/new-user-shell.component';
-import { NewUserComponent } from './components/new-user/new-user.component';
-
-import {MaterialModule} from '../../material/material.module';
+//import {MaterialModule} from '../../material/material.module';
 /*import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';*/
 
@@ -23,7 +22,7 @@ import {HttpClientModule} from '@angular/common/http';*/
     ],
     imports: [
         CommonModule,
-        MaterialModule,
+      //  MaterialModule,
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
@@ -31,8 +30,9 @@ import {HttpClientModule} from '@angular/common/http';*/
    //     HttpClientModule
     ],
     exports: [
+        SharedModule,
         UsersListShellComponent,
-        MaterialModule,
+      //  MaterialModule,
     ]
 })
 export class UsersModule { }

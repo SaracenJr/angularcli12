@@ -8,9 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {UsersModule} from './modules/users/users.module';
 import {SharedModule} from './shared/shared.module';
 
-import {MaterialModule} from './material/material.module';
+//import {MaterialModule} from './material/material.module';
+import {VehiclesModule} from "./modules/vehicles/vehicles.module";
 
-//import { UserCardComponent } from './shared/components/user-card/user-card.component';
+//import { ComponentCardComponent } from './shared/components/component-card/component-card.component';
 //import { UsersListComponent } from './modules/users/components/users-list/users-list.component';
 
 @NgModule({
@@ -22,11 +23,13 @@ import {MaterialModule} from './material/material.module';
         AppRoutingModule,
         BrowserAnimationsModule,
         UsersModule,
+        VehiclesModule,
         SharedModule,
-        MaterialModule,
+       // MaterialModule,
     ],
     exports: [
-        MaterialModule,
+        SharedModule
+      //  MaterialModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

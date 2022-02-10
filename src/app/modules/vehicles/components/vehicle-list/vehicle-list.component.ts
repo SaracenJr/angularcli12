@@ -9,7 +9,7 @@ import {ICard} from "../../../../shared/components/component-card/interfaces/car
 })
 export class VehicleListComponent implements OnInit {
     @Input() cards: ICard[] = [];
-    @Input() favoriteCards: any;
+    @Input() favoriteCards: ICard[] = [];
     @Output() addFavorite = new EventEmitter<number>();
 
     constructor() { }

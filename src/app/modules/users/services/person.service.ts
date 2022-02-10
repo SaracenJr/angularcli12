@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IPerson} from '../interfaces/person.interface';
-import {delay} from "rxjs/operators";
-import {of} from "rxjs";
+import {catchError, delay, map} from "rxjs/operators";
+import {Observable, of} from "rxjs";
+import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,10 @@ import {of} from "rxjs";
 export class PersonService {
 
     private persons: IPerson[] = [
-        {firstName:'kek', lastName: 'kek', age: 11, company: 'com', department: 'kok', activated: true, id: 0},
-        {firstName:'man', lastName: 'man', age: 61, company: 'ma', department: 'dgf', activated: true, id: 1},
-        {firstName:'wertyjk', lastName: 'werthj', age: 131, company: 'werhj', department: 'erhj', activated: true, id: 2},
-        {firstName:'qwerty', lastName: 'qwer', age: 16, company: 'qwert', department: 'qwert', activated: false, id: 3}
+        {firstName:'kek', lastName: 'kek', age: 17, company: 'com', department: 'kok', gender: 'male', email: 'fff@gmail.com', activated: true, id: 0},
+        {firstName:'man', lastName: 'man', age: 61, company: 'ma', department: 'dgf', gender: 'male', email: 'ggg@gmail.com', activated: true, id: 1},
+        {firstName:'wertyjk', lastName: 'werthj', age: 31, company: 'werhj', department: 'erhj', gender: 'female', email: 'aaa@gmail.com', activated: true, id: 2},
+        {firstName:'qwerty', lastName: 'qwer', age: 16, company: 'qwert', department: 'qwert', gender: 'male', email: 'refff@gmail.com', activated: false, id: 3}
     ]
 
   constructor() { }
@@ -27,10 +28,32 @@ export class PersonService {
             age: person.age,
             company: person.company,
             department: person.department,
+            gender: person.gender,
+            email: person.email,
             activated: true,
             id: this.persons.length
         }
         this.persons.push(newPerson);
         return of().pipe(delay(1000));
   }
+    emailExists(email: string): Observable<boolean> {
+        return of(email).pipe(
+            delay(500),
+            map((email) => {
+                const emails : string[] = [];
+                    this.persons.forEach(person => {
+                    emails.push(person.email);
+                });
+                return emails.includes(email);
+            })
+        );
+    }
+    uniqueEmailValidator(): AsyncValidatorFn {
+        return (control: AbstractControl): Observable<ValidationErrors | null> => {
+            return this.emailExists(control.value).pipe(
+                map((exists) => (exists ? { emailExists: true } : null)),
+                catchError(async (err) => null)
+            );
+        };
+    }
 }

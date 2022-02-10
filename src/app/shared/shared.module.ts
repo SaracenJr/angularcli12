@@ -7,6 +7,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+
 //import {MaterialModule} from '../material/material.module';
 
 @NgModule({
@@ -20,7 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-
+        MatRadioModule,
       //  MaterialModule,
 
     ],
@@ -31,6 +33,7 @@ import {MatIconModule} from '@angular/material/icon';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
+        MatRadioModule,
        // MaterialModule,
     ]
 })

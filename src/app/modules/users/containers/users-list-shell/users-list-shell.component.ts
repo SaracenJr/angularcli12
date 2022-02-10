@@ -13,7 +13,7 @@ import {FavoriteService} from "../../../../shared/services/favorite.service";
 export class UsersListShellComponent implements OnInit {
 
     public cards: ICard[] = [];
-    public favoritePersons : any;
+    public favoritePersons : ICard[] = [];
     public isFiltered : boolean = false;
 
     constructor(
@@ -30,17 +30,36 @@ export class UsersListShellComponent implements OnInit {
                 secondContent: person.activated ? 'active': 'non-active',
                 id: person.id
             };
-            this.cards.push(card)}));
+            this.cards.push(card);
+            this.favorites.getFavorites().subscribe(data => {
+                data.forEach((fav) => {
+                    if(fav.type === 'person'){
+                        let card = this.cards.find((card) => card.id === fav.id);
+                        if(card){
+                            this.favoritePersons.push(card);
+                        }
+                    }
+                })
+            })}));
     }
 
     addFavorite(id: number) : void{
-        this.favoritePersons = [];
-        this.favorites.add(id, 'person').subscribe(data => data.forEach((fav: {id: number, type: string}) => {
-            if(fav.type === 'person'){
-                this.favoritePersons.push(this.cards.find((card) => card.id === fav.id));
-                console.log('fav:', this.favoritePersons);
+        //this.favoritePersons = [];
+        this.favorites.add(id, 'person').subscribe(data => {
+            if(data[data.length-1].type === 'person'){
+                let card = this.cards.find((card) => card.id === data[data.length-1].id);
+                if(card){
+                    this.favoritePersons.push(card);
+                }
             }
-        }));
+
+               /* .forEach((fav: {id: number, type: string}) => {
+                    if(fav.type === 'person'){
+                        this.favoritePersons.push(this.cards.find((card) => card.id === fav.id));
+                        console.log('fav:', this.favoritePersons);
+                    }
+                })*/
+        });
     }
 
     onlyActive() : void{

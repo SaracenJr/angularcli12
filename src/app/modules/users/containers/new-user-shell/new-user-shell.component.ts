@@ -22,7 +22,7 @@ export class NewUserShellComponent implements OnInit {
   formSave(form:IPerson){
       console.log(form);
       this.persons.newPerson(form);
-      this.router.navigate(['UsersListShellComponent']);
+      this.router.navigate(['Users']);
   }
 
 }

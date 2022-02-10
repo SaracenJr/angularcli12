@@ -15,11 +15,10 @@ import {ICard} from "../../../../shared/components/component-card/interfaces/car
     selector: 'app-users-list',
     templateUrl: './users-list.component.html',
     styleUrls: ['./users-list.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersListComponent implements OnInit, OnChanges {
     @Input() cards: ICard[] = [];
-    @Input() favoriteCards: any;
+    @Input() favoriteCards: ICard[] = [];
     @Output() addFavorite = new EventEmitter<number>();
 
     constructor() { }

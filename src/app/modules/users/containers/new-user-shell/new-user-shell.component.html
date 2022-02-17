@@ -1,2 +1,7 @@
-<p>Add new user:</p>
-<app-new-user (formSave)="formSave($event)"></app-new-user>
+<div class="form">
+    <p>Add new user:</p>
+    <app-new-user (formReady)="personFormReady($event)"></app-new-user>
+    <app-new-user-addresses  (formReady)="addressFormReady($event)"></app-new-user-addresses>
+    <button mat-raised-button  color="primary" type="submit" (click)="formSave()">Save</button>
+</div>
+

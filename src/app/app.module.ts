@@ -17,6 +17,7 @@ import {VehiclesModule} from "./modules/vehicles/vehicles.module";
 @NgModule({
     declarations: [
         AppComponent,
+      //  NewUserAddressesComponent,
     ],
     imports: [
         BrowserModule,

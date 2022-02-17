@@ -1,31 +1,51 @@
-<form [formGroup]="profileForm" (ngSubmit)=onSubmit()>
-    <mat-form-field appearance="fill" >
-        <mat-label for="firstName"> First Name:</mat-label>
-        <input matInput type="text" id="firstName" name="firstName"  formControlName="firstName" required />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
+<form [formGroup]="profileForm" >
+    <p>
+        <mat-form-field appearance="fill" >
+            <mat-label for="firstName"> First Name:</mat-label>
+            <input matInput type="text" id="firstName" name="firstName"  formControlName="firstName" required />
+            <mat-error *ngIf="profileForm.get('firstName').invalid">First name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
         <mat-label for="lastName">last Name:</mat-label>
         <input matInput type="text" id="lastName" name="lastName"  formControlName="lastName" required/>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label for="age">Age:</mat-label>
-        <input matInput type="number" id="age" name="age"  formControlName="age" required min="15" max="100"/>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label for="age">company:</mat-label>
-        <input matInput type="text" id="company" name="company"  formControlName="company" required maxLength="35" />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label for="department">department:</mat-label>
-        <input matInput type="text" id="department" name="department"  formControlName="department" required minLength="6" />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
+        <mat-error *ngIf="profileForm.get('lastName').invalid">Last name is required</mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label for="age">Age:</mat-label>
+            <input matInput type="number" id="age" name="age"  formControlName="age" required />
+            <mat-error *ngIf="profileForm.get('age').errors?.required">Age is required</mat-error>
+            <mat-error *ngIf="profileForm.get('age').errors?.min">Age should be more then {{profileForm.get('age').errors?.min?.min}}</mat-error>
+            <mat-error *ngIf="profileForm.get('age').errors?.max">Age should be less then {{profileForm.get('age').errors?.max?.max}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
         <mat-label for="email">email:</mat-label>
         <input matInput type="email" id="email" name="email"  formControlName="email" required />
+        <mat-error *ngIf="profileForm.get('email').errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="profileForm.get('email').errors?.email">Email should have email format</mat-error>
+        <mat-error *ngIf="profileForm.get('email').errors?.pattern">Email should have @gmail.com </mat-error>
+        <mat-error *ngIf="profileForm.get('email').errors?.uniqueEmailValidator">Email is already exists </mat-error>
     </mat-form-field>
-    <mat-radio-group formControlName="gender">
-        <mat-radio-button value="male">male</mat-radio-button>
-        <mat-radio-button value="female">female</mat-radio-button>
-    </mat-radio-group>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Save</button>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label for="company">company:</mat-label>
+            <input matInput type="text" id="company" name="company"  formControlName="company" required />
+            <mat-error *ngIf="profileForm.get('company').errors?.required">Company is required</mat-error>
+            <mat-error *ngIf="profileForm.get('company').errors?.minLength">Company should have less then {{profileForm.get('company').errors?.minLength?.minLength}} symbols</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+        <mat-label for="department">department:</mat-label>
+        <input matInput type="text" id="department" name="department"  formControlName="department" required />
+        <mat-error *ngIf="profileForm.get('department').errors?.required">Department is required</mat-error>
+        <mat-error *ngIf="profileForm.get('department').errors?.maxLength">Department should have more then {{profileForm.get('department').errors?.maxLength?.maxLength}} symbols</mat-error>
+    </mat-form-field>
+    </p>
+    <p>
+        <mat-radio-group formControlName="gender">
+            <mat-radio-button class="matRadio" value="male">male</mat-radio-button>
+            <mat-radio-button class="matRadio" value="female">female</mat-radio-button>
+        </mat-radio-group>
+    </p>
 </form>

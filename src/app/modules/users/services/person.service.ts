@@ -10,10 +10,10 @@ import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/form
 export class PersonService {
 
     private persons: IPerson[] = [
-        {firstName:'kek', lastName: 'kek', age: 17, company: 'com', department: 'kok', gender: 'male', email: 'fff@gmail.com', activated: true, id: 0},
-        {firstName:'man', lastName: 'man', age: 61, company: 'ma', department: 'dgf', gender: 'male', email: 'ggg@gmail.com', activated: true, id: 1},
-        {firstName:'wertyjk', lastName: 'werthj', age: 31, company: 'werhj', department: 'erhj', gender: 'female', email: 'aaa@gmail.com', activated: true, id: 2},
-        {firstName:'qwerty', lastName: 'qwer', age: 16, company: 'qwert', department: 'qwert', gender: 'male', email: 'refff@gmail.com', activated: false, id: 3}
+        {firstName:'kek', lastName: 'kek', age: 17, company: 'com', department: 'kok', gender: 'male', email: 'fff@gmail.com', activated: true, addresses: ['Minsk'], id: 0},
+        {firstName:'man', lastName: 'man', age: 61, company: 'ma', department: 'dgf', gender: 'male', email: 'ggg@gmail.com', activated: true, addresses: ['Brest'], id: 1},
+        {firstName:'wertyjk', lastName: 'werthj', age: 31, company: 'werhj', department: 'erhj', gender: 'female', email: 'aaa@gmail.com', activated: true, addresses: ['green str'], id: 2},
+        {firstName:'qwerty', lastName: 'qwer', age: 16, company: 'qwert', department: 'qwert', gender: 'male', email: 'refff@gmail.com', activated: false, addresses: ['central square'], id: 3}
     ]
 
   constructor() { }
@@ -31,10 +31,12 @@ export class PersonService {
             gender: person.gender,
             email: person.email,
             activated: true,
+            addresses: person.addresses,
             id: this.persons.length
         }
         this.persons.push(newPerson);
-        return of().pipe(delay(1000));
+        console.log(this.persons);
+        return of([]).pipe(delay(1000));
   }
     emailExists(email: string): Observable<boolean> {
         return of(email).pipe(
@@ -42,7 +44,9 @@ export class PersonService {
             map((email) => {
                 const emails : string[] = [];
                     this.persons.forEach(person => {
-                    emails.push(person.email);
+                        if(person.email){
+                            emails.push(person.email);
+                        }
                 });
                 return emails.includes(email);
             })

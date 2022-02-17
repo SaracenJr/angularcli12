@@ -1,9 +1,15 @@
-<ng-container *ngFor ="let card of cards">
-    <app-card [card]="card" (addToFavorite)="addToFavorite($event)"></app-card>
-</ng-container>
-<p>Favorite:</p>
-<ng-container *ngFor ="let card of favoriteCards">
-    <app-card [card]="card"></app-card>
-</ng-container>
+<div class="flex">
+    <ng-container *ngFor ="let card of cards">
+        <app-card [card]="card" (addToFavorite)="addToFavorite($event)"></app-card>
+    </ng-container>
+</div>
+<p class="center">Favorite:</p>
+<div class="flex">
+    <ng-container *ngFor ="let card of favoriteCards">
+        <app-card [card]="card"></app-card>
+    </ng-container>
+</div>
+
+
 
 

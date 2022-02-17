@@ -1,6 +1,5 @@
 import {Component, OnInit, QueryList} from '@angular/core';
 
-import {IPerson} from "../../interfaces/person.interface";
 import {PersonService} from "../../services/person.service";
 import {ICard} from "../../../../shared/components/component-card/interfaces/card.interface";
 import {FavoriteService} from "../../../../shared/services/favorite.service";
@@ -17,21 +16,21 @@ export class UsersListShellComponent implements OnInit {
     public isFiltered : boolean = false;
 
     constructor(
-        public persons: PersonService,
-        public favorites: FavoriteService
+        public personService: PersonService,
+        public favoriteService: FavoriteService
     ) { }
 
     ngOnInit(): void {
-        this.persons.getPersons().subscribe(data => data.forEach((person) => {
+        this.personService.getPersons().subscribe(data => data.forEach((person) => {
             let card : ICard = {
                 title: person.firstName+' '+person.lastName,
                 subtitle: ''+person.age,
-                firstContent: person.company+', '+person.department,
-                secondContent: person.activated ? 'active': 'non-active',
+                firstContent: person.company+', '+person.department + ', ' + person.activated ? 'active': 'non-active',
+                secondContent: 'addresses: ' + person.addresses,
                 id: person.id
             };
             this.cards.push(card);
-            this.favorites.getFavorites().subscribe(data => {
+            this.favoriteService.getFavorites().subscribe(data => {
                 data.forEach((fav) => {
                     if(fav.type === 'person'){
                         let card = this.cards.find((card) => card.id === fav.id);
@@ -45,7 +44,7 @@ export class UsersListShellComponent implements OnInit {
 
     addFavorite(id: number) : void{
         //this.favoritePersons = [];
-        this.favorites.add(id, 'person').subscribe(data => {
+        this.favoriteService.add(id, 'person').subscribe(data => {
             if(data[data.length-1].type === 'person'){
                 let card = this.cards.find((card) => card.id === data[data.length-1].id);
                 if(card){

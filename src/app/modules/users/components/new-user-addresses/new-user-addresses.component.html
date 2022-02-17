@@ -1,0 +1,17 @@
+<form [formGroup]="addressForm">
+    <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>My addresses</mat-label>
+        <mat-chip-list  #chipList aria-label="address selection" >
+            <mat-chip *ngFor="let address of addresses" (removed)="remove(address)" >
+                {{address}}
+                <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip>
+            <input placeholder="New address..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputAddOnBlur]= true
+                   (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field>
+</form>

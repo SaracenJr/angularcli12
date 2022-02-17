@@ -15,12 +15,12 @@ export class VehicleListShellComponent implements OnInit {
     public favoriteVehicles : ICard[] = [];
 
     constructor(
-        public Vehicles: VehicleService,
-        public favorites: FavoriteService
+        public VehicleService: VehicleService,
+        public favoriteService: FavoriteService
     ) { }
 
     ngOnInit(): void {
-        this.Vehicles.getVehicles().subscribe(data => data.forEach((vehicle) => {
+        this.VehicleService.getVehicles().subscribe(data => data.forEach((vehicle) => {
             let card : ICard = {
                 title: vehicle.name,
                 subtitle: vehicle.color,
@@ -29,14 +29,12 @@ export class VehicleListShellComponent implements OnInit {
                 id: vehicle.id
             };
             this.cards.push(card);
-            this.favorites.getFavorites().subscribe(data => {
-                console.log('data', data);
+            this.favoriteService.getFavorites().subscribe(data => {
                 data.forEach((fav) => {
                     if(fav.type === 'vehicle'){
                         let card = this.cards.find((card) => card.id === fav.id);
                         if(card){
                             this.favoriteVehicles.push(card);
-                            console.log('favvv', this.favoriteVehicles);
                         }
                     }
                 })
@@ -45,12 +43,11 @@ export class VehicleListShellComponent implements OnInit {
     }
     addFavorite(id: number) : void{
         //this.favoriteVehicles = [];
-        this.favorites.add(id, 'vehicle').subscribe(data => {
+        this.favoriteService.add(id, 'vehicle').subscribe(data => {
             if (data[data.length - 1].type === 'vehicle') {
                 let card = this.cards.find((card) => card.id === data[data.length - 1].id);
                 if(card){
                     this.favoriteVehicles.push(card);
-                    console.log('favvv', this.favoriteVehicles);
                 }
             }
         })

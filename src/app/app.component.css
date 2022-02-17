@@ -1,3 +1,13 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-
+.flex{
+    display: flex;
+    justify-content: center
+}
+.liRoute{
+    margin-right: 3%;
+}
+.aHeader{
+    width: 100%;
+    height: 100%;
+}

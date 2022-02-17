@@ -9,16 +9,20 @@ import { NewUserComponent } from './components/new-user/new-user.component';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {SharedModule} from '../../shared/shared.module';
+import { NewUserAddressesComponent } from './components/new-user-addresses/new-user-addresses.component';
 //import {MaterialModule} from '../../material/material.module';
 /*import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';*/
+
+
 
 @NgModule({
     declarations: [
         UsersListShellComponent,
         UsersListComponent,
         NewUserShellComponent,
-        NewUserComponent
+        NewUserComponent,
+        NewUserAddressesComponent
     ],
     imports: [
         CommonModule,
@@ -27,12 +31,13 @@ import {HttpClientModule} from '@angular/common/http';*/
         ReactiveFormsModule,
         FormsModule,
      //   MatNativeDateModule,
-   //     HttpClientModule
+   //     HttpClientModule,
     ],
     exports: [
         SharedModule,
         UsersListShellComponent,
+        NewUserShellComponent,
       //  MaterialModule,
-    ]
+    ],
 })
 export class UsersModule { }

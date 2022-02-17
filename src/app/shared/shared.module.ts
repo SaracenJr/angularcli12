@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatChipsModule} from '@angular/material/chips';
 
 //import {MaterialModule} from '../material/material.module';
 
@@ -23,6 +24,7 @@ import {MatRadioModule} from '@angular/material/radio';
         MatInputModule,
         MatIconModule,
         MatRadioModule,
+        MatChipsModule
       //  MaterialModule,
 
     ],
@@ -34,6 +36,7 @@ import {MatRadioModule} from '@angular/material/radio';
         MatInputModule,
         MatIconModule,
         MatRadioModule,
+        MatChipsModule
        // MaterialModule,
     ]
 })

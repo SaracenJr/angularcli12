@@ -1,10 +1,10 @@
 <mat-card class="example-card">
     <mat-card-header>
-        <mat-card-title>
+        <mat-card-title class="title">
             {{ card?.title }}
         </mat-card-title>
         <mat-card-subtitle>
-            {{card?.subtitle}}
+            <img mat-card-image class="user-image" src="{{card?.subtitle}}">
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -14,6 +14,7 @@
     <button mat-icon-button  color="warn" (click)="favorite(card?.id)">
         <mat-icon>favorite</mat-icon>
     </button>
+    <a mat-icon-button (click)="goto(card?.id)">edit</a>
 </mat-card>
 
 

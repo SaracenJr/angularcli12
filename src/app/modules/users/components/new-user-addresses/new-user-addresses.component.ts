@@ -1,8 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {IPerson} from "../../interfaces/person.interface";
 import {IAddressesPerson} from "../../interfaces/personAddresses.interface";
+import {IAddress} from "../../interfaces/address.interface";
+
+function input() {
+
+}
 
 @Component({
     selector: 'app-new-user-addresses',
@@ -10,38 +15,82 @@ import {IAddressesPerson} from "../../interfaces/personAddresses.interface";
     styleUrls: ['./new-user-addresses.component.css']
 })
 export class NewUserAddressesComponent implements OnInit {
-    @Output() formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+    //@input() parentFormGroup: FormGroup;
+    @Input() editedPersonAddresses;
+    @Output() formReady: EventEmitter<FormArray> = new EventEmitter<FormArray>();
+    public addresses : FormArray = new FormArray([]);
+    public errorMessages: string[] = ['address is required', 'zip is required'];
 
-    addressForm = new FormGroup({
-        addresses: new FormControl([])
-    });
-    addresses: string[] = [];
-
-    add(event: MatChipInputEvent): void {
-        const value = (event.value || '').trim();
-
-        // Add our fruit
-        if (value) {
-            this.addresses.push(value);
-            this.addressForm.controls.addresses.patchValue([...this.addresses]);
-        }
-
-        // Clear the input value
-        event.chipInput!.clear();
-    }
-
-    remove(fruit: string): void {
-        const index = this.addresses.indexOf(fruit);
-
-        if (index >= 0) {
-            this.addresses.splice(index, 1);
-            this.addressForm.controls.addresses.patchValue([...this.addresses]);
-        }
-    }
     constructor() { }
 
     ngOnInit(): void {
-        this.formReady.emit(this.addressForm);
+            this.addresses.push(this.createAddressFormGroup());
+
+       // this.onUserAddressFormReady.emit(this.address);
+        this.formReady.emit(this.addresses);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.editedPersonAddresses && this.editedPersonAddresses) {
+            this.addresses.removeAt(0);
+            this.editedPersonAddresses.forEach(address => {
+                const form = new FormGroup({
+                    addressLine: new FormControl(address.addressLine, Validators.required),
+                    city: new FormControl(address.city),
+                    zip: new FormControl(address.zip),
+                });
+                const zipControl = form.get('zip');
+                const cityControl = form.get('city');
+
+                cityControl.valueChanges.subscribe((value => {
+                    if (value) {
+                        zipControl.setValidators(Validators.required);
+                    } else {
+                        zipControl.clearValidators();
+                        zipControl.updateValueAndValidity();
+                    }
+                }));
+                this.addresses.push(form);
+            });
+        }
+    }
+    createAddressFormGroup(): FormGroup{
+        const form =  new FormGroup({
+            addressLine: new FormControl('', Validators.required),
+            city: new FormControl(''),
+            zip: new FormControl(''),
+        });
+
+        const zipControl = form.get('zip');
+        const cityControl = form.get('city');
+
+        cityControl.valueChanges.subscribe((value => {
+            if(value){
+                zipControl.setValidators(Validators.required);
+            }else {
+                zipControl.clearValidators();
+                zipControl.updateValueAndValidity();
+            }
+        }));
+        return form;
+    }
+    addAddress(){
+        this.addresses.push(this.createAddressFormGroup());
+    }
+    deleteAddress(index: number){
+        this.addresses.removeAt(index);
+    }
+    setZipValidator(zipControl: FormControl): void{
+        zipControl.setValidators(Validators.required);
+        zipControl.updateValueAndValidity();
+    }
+    cityControl(cityControl: FormControl, zipControl: FormControl): boolean{
+        if(!!cityControl.value){
+            this.setZipValidator(zipControl);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

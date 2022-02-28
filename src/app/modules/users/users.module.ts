@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {SharedModule} from '../../shared/shared.module';
 import { NewUserAddressesComponent } from './components/new-user-addresses/new-user-addresses.component';
+import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
 //import {MaterialModule} from '../../material/material.module';
 /*import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';*/
@@ -22,7 +23,8 @@ import {HttpClientModule} from '@angular/common/http';*/
         UsersListComponent,
         NewUserShellComponent,
         NewUserComponent,
-        NewUserAddressesComponent
+        NewUserAddressesComponent,
+        EditUserShellComponent
     ],
     imports: [
         CommonModule,
@@ -37,6 +39,7 @@ import {HttpClientModule} from '@angular/common/http';*/
         SharedModule,
         UsersListShellComponent,
         NewUserShellComponent,
+        EditUserShellComponent
       //  MaterialModule,
     ],
 })

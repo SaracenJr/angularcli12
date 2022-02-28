@@ -1,4 +1,5 @@
-<div class="flex">
+
+<div class="flex" >
     <ng-container *ngFor ="let card of cards">
         <app-card [card]="card" (addToFavorite)="addToFavorite($event)"></app-card>
     </ng-container>

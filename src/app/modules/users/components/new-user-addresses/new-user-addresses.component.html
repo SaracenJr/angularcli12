@@ -1,17 +1,23 @@
-<form [formGroup]="addressForm">
-    <mat-form-field class="example-chip-list" appearance="fill">
-        <mat-label>My addresses</mat-label>
-        <mat-chip-list  #chipList aria-label="address selection" >
-            <mat-chip *ngFor="let address of addresses" (removed)="remove(address)" >
-                {{address}}
-                <button matChipRemove>
-                    <mat-icon>cancel</mat-icon>
-                </button>
-            </mat-chip>
-            <input placeholder="New address..."
-                   [matChipInputFor]="chipList"
-                   [matChipInputAddOnBlur]= true
-                   (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
+<form *ngFor="let address of addresses.controls, let index" [formGroup]="address">
+    <button type="button" mat-button color="warn" (click)="deleteAddress(index)">Delete</button>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Addresses</mat-label>
+        <input matInput formControlName="addressLine" required>
+        <mat-error *ngIf="address.get('addressLine')?.invalid">{{errorMessages[0]}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Zip</mat-label>
+        <input matInput formControlName="zip">
+        <mat-error *ngIf="cityControl(address.get('city'), address.get('zip'))">{{errorMessages[1]}}</mat-error>
     </mat-form-field>
 </form>
+<button type="button" mat-raised-button color="accent" (click)="addAddress()">Add</button>
+
+

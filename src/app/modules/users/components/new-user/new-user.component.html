@@ -2,12 +2,12 @@
     <p>
         <mat-form-field appearance="fill" >
             <mat-label for="firstName"> First Name:</mat-label>
-            <input matInput type="text" id="firstName" name="firstName"  formControlName="firstName" required />
+            <input matInput type="text" id="firstName" name="firstName"  formControlName="firstName" required (change)="editEmail()"/>
             <mat-error *ngIf="profileForm.get('firstName').invalid">First name is required</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
         <mat-label for="lastName">last Name:</mat-label>
-        <input matInput type="text" id="lastName" name="lastName"  formControlName="lastName" required/>
+        <input matInput type="text" id="lastName" name="lastName"  formControlName="lastName" required (change)="editEmail()"/>
         <mat-error *ngIf="profileForm.get('lastName').invalid">Last name is required</mat-error>
         </mat-form-field>
     </p>

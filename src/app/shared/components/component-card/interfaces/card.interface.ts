@@ -3,5 +3,5 @@ export interface ICard {
     subtitle: string,
     firstContent: string,
     secondContent: string,
-    id: number
+    id: string
 }

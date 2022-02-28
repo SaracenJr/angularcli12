@@ -1,0 +1,6 @@
+<div class="form">
+    <p>Add new user:</p>
+    <app-new-user [editedPerson]="person" (formReady)="personFormReady($event)"></app-new-user>
+    <app-new-user-addresses [editedPersonAddresses]="person?.addresses" (formReady)="addressFormReady($event)"></app-new-user-addresses>
+    <button mat-raised-button  color="primary" type="submit" (click)="formSave()">Save</button>
+</div>

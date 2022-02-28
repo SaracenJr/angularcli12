@@ -19,7 +19,7 @@ import {ICard} from "../../../../shared/components/component-card/interfaces/car
 export class UsersListComponent implements OnInit, OnChanges {
     @Input() cards: ICard[] = [];
     @Input() favoriteCards: ICard[] = [];
-    @Output() addFavorite = new EventEmitter<number>();
+    @Output() addFavorite = new EventEmitter<string>();
 
     constructor() { }
 
@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
     }
 
-    addToFavorite(id?:number) : void {
+    addToFavorite(id?:string) : void {
         this.addFavorite.emit(id);
     }
 }

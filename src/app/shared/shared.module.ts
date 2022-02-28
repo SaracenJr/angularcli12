@@ -9,6 +9,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 //import {MaterialModule} from '../material/material.module';
 
@@ -24,7 +26,8 @@ import {MatChipsModule} from '@angular/material/chips';
         MatInputModule,
         MatIconModule,
         MatRadioModule,
-        MatChipsModule
+        MatChipsModule,
+        MatPaginatorModule
       //  MaterialModule,
 
     ],
@@ -36,7 +39,8 @@ import {MatChipsModule} from '@angular/material/chips';
         MatInputModule,
         MatIconModule,
         MatRadioModule,
-        MatChipsModule
+        MatChipsModule,
+        MatPaginatorModule
        // MaterialModule,
     ]
 })

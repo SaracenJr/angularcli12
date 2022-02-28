@@ -26,10 +26,10 @@ export class VehicleListShellComponent implements OnInit {
                 subtitle: vehicle.color,
                 firstContent: vehicle.number,
                 secondContent: ''+vehicle.releaseYear,
-                id: vehicle.id
+                id: ''+vehicle.id
             };
             this.cards.push(card);
-            this.favoriteService.getFavorites().subscribe(data => {
+            /*this.favoriteService.getFavorites().subscribe(data => {
                 data.forEach((fav) => {
                     if(fav.type === 'vehicle'){
                         let card = this.cards.find((card) => card.id === fav.id);
@@ -38,10 +38,10 @@ export class VehicleListShellComponent implements OnInit {
                         }
                     }
                 })
-            })
+            })*/
         }));
     }
-    addFavorite(id: number) : void{
+    /*addFavorite(id: number) : void{
         //this.favoriteVehicles = [];
         this.favoriteService.add(id, 'vehicle').subscribe(data => {
             if (data[data.length - 1].type === 'vehicle') {
@@ -51,7 +51,7 @@ export class VehicleListShellComponent implements OnInit {
                 }
             }
         })
-    }
+    }*/
 
        /* }data.forEach((fav: {id: number, type: string}) => {
             if(fav.type === 'vehicle'){

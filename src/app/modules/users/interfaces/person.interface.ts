@@ -1,3 +1,5 @@
+import {IAddress} from "./address.interface";
+
 export interface IPerson {
     firstName?: string
     lastName?: string
@@ -7,7 +9,7 @@ export interface IPerson {
     gender?: string
     email?: string
     activated?: boolean
-    addresses?: string[]
-    id: number
+    addresses?: IAddress[]
+    id: string
 }
 

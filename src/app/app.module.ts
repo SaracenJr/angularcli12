@@ -11,12 +11,14 @@ import {SharedModule} from './shared/shared.module';
 //import {MaterialModule} from './material/material.module';
 import {VehiclesModule} from "./modules/vehicles/vehicles.module";
 
+import { HttpClientModule } from '@angular/common/http';
 //import { ComponentCardComponent } from './shared/components/component-card/component-card.component';
 //import { UsersListComponent } from './modules/users/components/users-list/users-list.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+      //  EditUserShellComponent,
       //  NewUserAddressesComponent,
     ],
     imports: [
@@ -26,6 +28,7 @@ import {VehiclesModule} from "./modules/vehicles/vehicles.module";
         UsersModule,
         VehiclesModule,
         SharedModule,
+        HttpClientModule
        // MaterialModule,
     ],
     exports: [

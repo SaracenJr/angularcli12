@@ -7,5 +7,5 @@ export interface IInfoPerson {
     gender: string
     email: string
     activated: boolean
-    id: number
+    id: string
 }

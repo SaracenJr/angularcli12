@@ -1,4 +1,5 @@
-<button mat-raised-button color="primary" (click)="onlyActive()">
-    filter
-</button>
-<app-users-list [cards]="cards" [favoriteCards]="favoritePersons" (addFavorite)="addFavorite($event)"></app-users-list>
+<mat-form-field>
+    <input matInput type="text" id="search" placeholder="Search">
+</mat-form-field>
+
+<app-users-list [cards]="cards" [favoriteCards]="favoritePersons" ></app-users-list>

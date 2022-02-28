@@ -6,7 +6,8 @@ import {IPerson} from "../../interfaces/person.interface";
 import { Router} from '@angular/router';
 import {IInfoPerson} from "../../interfaces/personInfo.interface";
 import {IAddressesPerson} from "../../interfaces/personAddresses.interface";
-import {FormGroup} from "@angular/forms";
+import {FormArray, FormGroup} from "@angular/forms";
+import {IAddress} from "../../interfaces/address.interface";
 
 @Component({
   selector: 'app-new-user-shell',
@@ -16,7 +17,7 @@ import {FormGroup} from "@angular/forms";
 export class NewUserShellComponent implements OnInit {
 
     private personForm: FormGroup | undefined;
-    private addressForm: FormGroup | undefined;
+    private addressForm: FormArray | undefined;
 
   constructor(
       public personService: PersonService,
@@ -29,21 +30,30 @@ export class NewUserShellComponent implements OnInit {
       this.personForm = form;
       console.log(this.personForm);
   }
-  addressFormReady(form: FormGroup){
+  addressFormReady(form: FormArray){
       this.addressForm = form;
       console.log(this.addressForm);
   }
 
   formSave(){
+      console.log('address: ', this.addressForm);
+      const addresses : IAddress[] = []
+      this.addressForm.controls.forEach(address => {
+          console.log('this: ', address);
+          //addresses.push({addressLine: address.value.addressLine, city: address.value.city, zip: address.value.zip});
+          addresses.push(address.value);
+      });
+
       if (this.personForm?.invalid) {
           this.personForm?.markAllAsTouched();
           return;
       }
       let form : IPerson = {
           ...this.personForm?.value,
-          ...this.addressForm?.value
+          addresses: addresses,
+         // ...this.addressForm?.value
       }
-     // console.log(form);
+      console.log(form);
       this.personService.newPerson(form)
           .subscribe(() => {
               console.log('dsfghj');

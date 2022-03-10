@@ -8,6 +8,7 @@ import {IInfoPerson} from "../../interfaces/personInfo.interface";
 import {IAddressesPerson} from "../../interfaces/personAddresses.interface";
 import {FormArray, FormGroup} from "@angular/forms";
 import {IAddress} from "../../interfaces/address.interface";
+import {AuthService} from "../../../authorization/services/auth.service";
 
 @Component({
   selector: 'app-new-user-shell',
@@ -21,10 +22,15 @@ export class NewUserShellComponent implements OnInit {
 
   constructor(
       public personService: PersonService,
+      public authService: AuthService,
       private router: Router,
+
   ) { }
 
   ngOnInit(): void {
+      if(!this.authService.checkLoggedUser()){
+          this.router.navigate(['login']);
+      }
   }
   personFormReady(form: FormGroup){
       this.personForm = form;

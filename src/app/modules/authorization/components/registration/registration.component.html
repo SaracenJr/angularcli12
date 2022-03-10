@@ -1,0 +1,27 @@
+<form [formGroup]="registrationForm">
+    <p>
+        <mat-form-field appearance="fill" >
+            <mat-label for="userName"> User Name:</mat-label>
+            <input matInput type="text" id="userName" name="userName"  formControlName="userName" required />
+            <mat-error *ngIf="registrationForm.get('userName').invalid">User name is required</mat-error>
+        </mat-form-field>
+    </p>
+    <ng-container formGroupName="passwordGroup">
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label for="password"> Password:</mat-label>
+                <input matInput type="number" id="password" name="password"  formControlName="password" required />
+                <mat-error *ngIf="registrationForm.get('passwordGroup').get('password').invalid">Password is required</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill" >
+                <mat-label for="confirmPassword"> Confirm Password:</mat-label>
+                <input matInput type="number" id="confirmPassword" name="confirmPassword"  formControlName="confirmPassword" required />
+                <mat-error *ngIf="registrationForm.get('passwordGroup').get('confirmPassword').errors?.required">Confirm Password is required</mat-error>
+            </mat-form-field>
+        </p>
+        <mat-error *ngIf="registrationForm.get('passwordGroup').invalid">confirm</mat-error>
+    </ng-container>
+
+</form>

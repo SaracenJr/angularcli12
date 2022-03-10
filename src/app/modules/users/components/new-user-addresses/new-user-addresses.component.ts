@@ -83,6 +83,7 @@ export class NewUserAddressesComponent implements OnInit {
     setZipValidator(zipControl: FormControl): void{
         zipControl.setValidators(Validators.required);
         zipControl.updateValueAndValidity();
+        zipControl.markAsTouched();
     }
     cityControl(cityControl: FormControl, zipControl: FormControl): boolean{
         if(!!cityControl.value){

@@ -8,10 +8,12 @@ import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators
 import {IPerson} from "../../interfaces/person.interface";
 import {HttpService} from "../../services/http.service";
 import {RandomUser} from "../../interfaces/randomUser.interface";
+import {AuthService} from "../../../authorization/services/auth.service";
+import {Router} from "@angular/router";
 
-const searchBox = document.getElementById('search');
+//const searchBox = document.getElementById('search');
 
-const keyup$ = fromEvent(searchBox, 'keyup')
+//const keyup$ = fromEvent(searchBox, 'keyup')
 
 
 
@@ -31,32 +33,16 @@ export class UsersListShellComponent implements OnInit {
     constructor(
         public personService: PersonService,
         public favoriteService: FavoriteService,
-        public httpService: HttpService
+        public httpService: HttpService,
+        public authService: AuthService,
+        private router: Router,
     ) { }
 
-    createCard(person : IPerson): void{
-        let card : ICard = {
-            title: person.firstName+' '+person.lastName,
-            subtitle: ''+person.age,
-            firstContent: person.company+', '+person.department + ', ' + person.activated ? 'active': 'non-active',
-            secondContent: 'addresses: ' + person.addresses,
-            id: ''+person.id
-        };
-        this.cards.push(card);
-    }
-
-    createUserCard(user : RandomUser){
-        let card : ICard = {
-            title: user.name.first + user.name.last,
-            subtitle: ''+user.picture.large,
-            firstContent: user.location.city,
-            secondContent: user.phone,
-            id: user.id.value
-        };
-        this.usersCards.push(card);
-    }
-
     ngOnInit(): void {
+
+        if(!this.authService.checkLoggedUser()){
+            this.router.navigate(['login']);
+        }
 
         /*this.httpService.getUser(5).subscribe((data)=>{
             this.users = data;
@@ -105,6 +91,29 @@ export class UsersListShellComponent implements OnInit {
                 switchMap(fakeContinentsRequest),
             ).subscribe();
     }
+
+    createCard(person : IPerson): void{
+        let card : ICard = {
+            title: person.firstName+' '+person.lastName,
+            subtitle: ''+person.age,
+            firstContent: person.company+', '+person.department + ', ' + person.activated ? 'active': 'non-active',
+            secondContent: 'addresses: ' + person.addresses,
+            id: ''+person.id
+        };
+        this.cards.push(card);
+    }
+
+    createUserCard(user : RandomUser){
+        let card : ICard = {
+            title: user.name.first + user.name.last,
+            subtitle: ''+user.picture.large,
+            firstContent: user.location.city,
+            secondContent: user.phone,
+            id: user.id.value
+        };
+        this.usersCards.push(card);
+    }
+
 
     /*addFavorite(id: number) : void{
         //this.favoritePersons = [];

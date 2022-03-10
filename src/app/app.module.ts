@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,23 +12,32 @@ import {SharedModule} from './shared/shared.module';
 import {VehiclesModule} from "./modules/vehicles/vehicles.module";
 
 import { HttpClientModule } from '@angular/common/http';
-//import { ComponentCardComponent } from './shared/components/component-card/component-card.component';
-//import { UsersListComponent } from './modules/users/components/users-list/users-list.component';
+import {AuthorizationModule} from "./modules/authorization/authorization.module";
+import {RouterModule} from "@angular/router";
+import {AppRoutingModule} from "./app-routing.module";
+import { HeaderComponent } from './components/header/header.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+//import { ComponentCardComponent } from './shared/components/components-card/components-card.components';
+//import { UsersListComponent } from './modules/users/components/users-list/users-list.components';
 
 @NgModule({
     declarations: [
         AppComponent,
+        HeaderComponent,
+        ToolbarComponent,
       //  EditUserShellComponent,
       //  NewUserAddressesComponent,
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule,
+        //AppRoutingModule,
         BrowserAnimationsModule,
         UsersModule,
         VehiclesModule,
         SharedModule,
-        HttpClientModule
+        HttpClientModule,
+        AuthorizationModule,
+        AppRoutingModule
        // MaterialModule,
     ],
     exports: [

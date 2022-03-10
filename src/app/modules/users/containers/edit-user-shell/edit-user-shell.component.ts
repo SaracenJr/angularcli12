@@ -8,6 +8,7 @@ import {IInfoPerson} from "../../interfaces/personInfo.interface";
 import {IAddressesPerson} from "../../interfaces/personAddresses.interface";
 import {FormArray, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {AuthService} from "../../../authorization/services/auth.service";
 
 @Component({
   selector: 'app-edit-user-shell',
@@ -23,11 +24,16 @@ export class EditUserShellComponent implements OnInit {
 
     constructor(
         public personService: PersonService,
+        public authService: AuthService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+
     ) { }
 
     ngOnInit(): void {
+        if(!this.authService.checkLoggedUser()){
+            this.router.navigate(['login']);
+        }
         this.routeSub = this.route.params.subscribe(params => {
 
             this.personService.getPersonById(params['id']).subscribe(person => {
@@ -44,21 +50,21 @@ export class EditUserShellComponent implements OnInit {
     }
 
     formSave(): void{
-        const addresses : string[] = [];
-        this.addressForm.controls.forEach(address => {
-            addresses.push(address.value.addressLine+','+address.value.city+','+address.value.zip);
-        });
 
         if (this.personForm?.invalid) {
             this.personForm?.markAllAsTouched();
             return;
         }
+        if (this.addressForm?.invalid) {
+            this.addressForm?.markAllAsTouched();
+            return;
+        }
+        console.log('add', this.addressForm.value);
         let form : IPerson = {
             ...this.personForm?.value,
-            addresses: addresses,
+            addresses: this.addressForm.value,
             // ...this.addressForm?.value
         }
-        console.log(form);
         this.personService.editPerson(form, this.person.id)
             .subscribe(() => {
                 this.router.navigate(['Users']);

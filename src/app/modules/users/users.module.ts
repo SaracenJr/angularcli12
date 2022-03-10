@@ -11,6 +11,12 @@ import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SharedModule} from '../../shared/shared.module';
 import { NewUserAddressesComponent } from './components/new-user-addresses/new-user-addresses.component';
 import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
+
+//import {UserRoutingModule} from "./user-routing/user-routing.module";
+
+import {RouterModule} from "@angular/router";
+import {AppRoutingModule} from "../../app-routing.module";
+
 //import {MaterialModule} from '../../material/material.module';
 /*import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';*/
@@ -24,14 +30,17 @@ import {HttpClientModule} from '@angular/common/http';*/
         NewUserShellComponent,
         NewUserComponent,
         NewUserAddressesComponent,
-        EditUserShellComponent
+        EditUserShellComponent,
+
     ],
     imports: [
         CommonModule,
       //  MaterialModule,
+       // AppRoutingModule,
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
+        AppRoutingModule
      //   MatNativeDateModule,
    //     HttpClientModule,
     ],
@@ -39,7 +48,8 @@ import {HttpClientModule} from '@angular/common/http';*/
         SharedModule,
         UsersListShellComponent,
         NewUserShellComponent,
-        EditUserShellComponent
+        EditUserShellComponent,
+
       //  MaterialModule,
     ],
 })

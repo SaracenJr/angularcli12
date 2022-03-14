@@ -1,4 +1,4 @@
-export interface RandomUser {
+export interface IRandomUser {
     gender: string;
     name: Name;
     location: Location;

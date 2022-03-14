@@ -15,7 +15,14 @@ import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-s
 //import {UserRoutingModule} from "./user-routing/user-routing.module";
 
 import {RouterModule} from "@angular/router";
-import {AppRoutingModule} from "../../app-routing.module";
+import {UsersRoutingModule} from "./users-routing.module";
+import {UsersShellComponent} from "../../containers/users-shell/users-shell.component";
+import {HeaderComponent} from "../../components/header/header.component";
+import { InfoUserShellComponent } from './containers/info-user-shell/info-user-shell.component';
+import { CompanyInfoUserShellComponent } from './containers/company-info-user-shell/company-info-user-shell.component';
+import { PersonalInfoUserShellComponent } from './containers/personal-info-user-shell/personal-info-user-shell.component';
+import { ContactsInfoUserShellComponent } from './containers/contacts-info-user-shell/contacts-info-user-shell.component';
+//import {AppRoutingModule} from "../../app-routing.module";
 
 //import {MaterialModule} from '../../material/material.module';
 /*import {MatNativeDateModule} from '@angular/material/core';
@@ -31,6 +38,11 @@ import {HttpClientModule} from '@angular/common/http';*/
         NewUserComponent,
         NewUserAddressesComponent,
         EditUserShellComponent,
+        InfoUserShellComponent,
+        CompanyInfoUserShellComponent,
+        PersonalInfoUserShellComponent,
+        ContactsInfoUserShellComponent,
+
 
     ],
     imports: [
@@ -40,7 +52,7 @@ import {HttpClientModule} from '@angular/common/http';*/
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-        AppRoutingModule
+        UsersRoutingModule
      //   MatNativeDateModule,
    //     HttpClientModule,
     ],

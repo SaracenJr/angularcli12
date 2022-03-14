@@ -1,5 +1,6 @@
 export interface ICard {
-    title: string,
+    firstName: string,
+    lastName: string
     subtitle: string,
     firstContent: string,
     secondContent: string,

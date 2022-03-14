@@ -28,9 +28,7 @@ export class NewUserShellComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      if(!this.authService.checkLoggedUser()){
-          this.router.navigate(['login']);
-      }
+
   }
   personFormReady(form: FormGroup){
       this.personForm = form;

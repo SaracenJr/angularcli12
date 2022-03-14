@@ -3,11 +3,11 @@ import {Component, OnInit, QueryList} from '@angular/core';
 import {PersonService} from "../../services/person.service";
 import {ICard} from "../../../../shared/components/component-card/interfaces/card.interface";
 import {FavoriteService} from "../../../../shared/services/favorite.service";
-import {fromEvent, of} from "rxjs";
+import {fromEvent, Observable, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 import {IPerson} from "../../interfaces/person.interface";
 import {HttpService} from "../../services/http.service";
-import {RandomUser} from "../../interfaces/randomUser.interface";
+import {IRandomUser} from "../../interfaces/randomUser.interface";
 import {AuthService} from "../../../authorization/services/auth.service";
 import {Router} from "@angular/router";
 
@@ -24,53 +24,53 @@ import {Router} from "@angular/router";
 })
 export class UsersListShellComponent implements OnInit {
 
-    public cards: ICard[] = [];
-    public users : RandomUser[] = [];
+   // public cards: ICard[] = [];
+    //public users : IRandomUser[] = [];
     public usersCards : ICard[] = [];
     public favoritePersons : ICard[] = [];
     public isFiltered : boolean = false;
+    public totalSize: Observable<number>
 
     constructor(
         public personService: PersonService,
         public favoriteService: FavoriteService,
-        public httpService: HttpService,
+
         public authService: AuthService,
         private router: Router,
     ) { }
 
     ngOnInit(): void {
 
-        if(!this.authService.checkLoggedUser()){
-            this.router.navigate(['login']);
-        }
+        this.personService.Users.subscribe(users => {
+            console.log(users);
 
-        /*this.httpService.getUser(5).subscribe((data)=>{
-            this.users = data;
-            this.users.forEach(user => {
+            users.forEach((user) => {
                 this.createUserCard(user);
             })
-        });*/
+        })
+        this.totalSize = this.personService.Users.pipe(
+            map(users => users.length)
+        )
 
-        this.personService.getPersons().subscribe(data => data.forEach((person) => {
-            this.createCard(person);
-            this.favoriteService.getFavorites().subscribe(data => {
-                data.forEach((fav) => {
-                    if(fav.type === 'person'){
-                        let card = this.cards.find((card) => card.id === ''+fav.id);
-                        if(card){
-                            this.favoritePersons.push(card);
+                /*this.favoriteService.getFavorites().subscribe(data => {
+                    data.forEach((fav) => {
+                        if (fav.type === 'person') {
+                            let card = this.cards.find((card) => card.id === '' + fav.id);
+                            if (card) {
+                                this.favoritePersons.push(card);
+                            }
                         }
-                    }
-                })
-            })}));
+                    })
+                });*/
 
-        const applyFilter = keys => {
+
+        /*const applyFilter = keys => {
             console.log(keys);
             console.log('cards', this.cards);
             this.cards.length = 0;
-            this.personService.getPersons().subscribe(data => {
-                    data.forEach((person) => {
-                        this.createCard(person);
+            this.personService.getUsers().subscribe(users => {
+                    users.forEach((user) => {
+                        this.createUserCard(user);
                     })
                     this.cards = this.cards.filter(e => {
                         return e.title.toLowerCase().indexOf(keys.toLowerCase()) > -1;
@@ -89,10 +89,10 @@ export class UsersListShellComponent implements OnInit {
                 map((e: any) => e.target.value),
                 distinctUntilChanged(),
                 switchMap(fakeContinentsRequest),
-            ).subscribe();
+            ).subscribe();*/
     }
 
-    createCard(person : IPerson): void{
+/*    createCard(person : IPerson): void{
         let card : ICard = {
             title: person.firstName+' '+person.lastName,
             subtitle: ''+person.age,
@@ -101,11 +101,13 @@ export class UsersListShellComponent implements OnInit {
             id: ''+person.id
         };
         this.cards.push(card);
-    }
+    }*/
 
-    createUserCard(user : RandomUser){
+    createUserCard(user : IRandomUser) : void{
+
         let card : ICard = {
-            title: user.name.first + user.name.last,
+            firstName: user.name.first,
+            lastName: user.name.last,
             subtitle: ''+user.picture.large,
             firstContent: user.location.city,
             secondContent: user.phone,

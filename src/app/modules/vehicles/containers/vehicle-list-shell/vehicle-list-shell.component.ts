@@ -22,7 +22,8 @@ export class VehicleListShellComponent implements OnInit {
     ngOnInit(): void {
         this.VehicleService.getVehicles().subscribe(data => data.forEach((vehicle) => {
             let card : ICard = {
-                title: vehicle.name,
+                firstName: vehicle.name,
+                lastName: vehicle.name,
                 subtitle: vehicle.color,
                 firstContent: vehicle.number,
                 secondContent: ''+vehicle.releaseYear,

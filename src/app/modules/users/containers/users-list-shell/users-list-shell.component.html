@@ -2,4 +2,11 @@
     <input matInput type="text" id="search" placeholder="Search">
 </mat-form-field>
 
-<app-users-list [cards]="cards" [favoriteCards]="favoritePersons" ></app-users-list>
+<app-users-list [cards]="usersCards" [favoriteCards]="favoritePersons" ></app-users-list>
+
+<mat-paginator [length]="totalSize"
+               [pageSize]="5"
+               [pageSizeOptions]="[5, 10]"
+               aria-label="Select page">
+</mat-paginator>
+

@@ -1,12 +1,19 @@
-<header>
-    <nav>
+<header class="flex">
+    <nav id="navigation">
         <ul class="flex">
             <a mat-raised-button routerLink="Users" routerLinkActive="active">Users</a>
-            <a mat-raised-button routerLink="New-UserInterface" routerLinkActive="active">New User</a>
+            <a mat-raised-button routerLink="New-User" routerLinkActive="active">New User</a>
             <a mat-raised-button routerLink="Vehicles" routerLinkActive="active">Vehicles</a>
         </ul>
     </nav>
-    <div>
+    <div id="menu">
+        <p class="headerInfo">Now:
+            <span>{{title}}</span>
+        </p>
+        <p class="headerInfo">User:
+            <span>{{userName}}</span>
+        </p>
+        <a mat-raised-button routerLink="Info-User/{{userName}}" routerLinkActive="active">Info</a>
         <button mat-raised-button  color="primary" type="button" (click)="quit()">Quit</button>
     </div>
 </header>

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { IPerson} from '../interfaces/person.interface';
-import {catchError, delay, map} from "rxjs/operators";
+import {catchError, delay, map, shareReplay} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/forms";
+import {IRandomUser} from "../interfaces/randomUser.interface";
+import {HttpService} from "./http.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,40 @@ export class PersonService {
         {firstName:'qwerty', lastName: 'qwer', age: 16, company: 'qwerterfty', department: 'qwert', gender: 'male', email: 'refff@gmail.com', activated: false, addresses: [{addressLine: 'lkjhgfd', city: '', zip: ''}], id: '3'}
     ]
 
-  constructor() { }
+    public Users  = this.getUsersFromServer().pipe();
+
+  constructor(
+      public httpService: HttpService,
+  ) { }
+
+    public getUsersFromServer(options?): Observable<IRandomUser[]> {
+        const queryParams = {
+            results: options ? options.results : 5,
+            //inc: 'gender,name,location,email,dob,picture',
+            seed: 'users',
+            page: options ? options.page : 1
+        }
+
+        return this.httpService
+            .get('', {params: queryParams})
+            .pipe(
+                map(response =>
+                    response['results'],
+            )
+            )
+    }
+
+    public getUsers(){
+      return of(this.Users).pipe();
+    }
+ /*   public getUserById(id: string){
+      return of(this.Users).pipe(
+          delay(500),
+          map(users => {
+              users.find(user => {user.id === id})
+          })
+      )
+    }*/
 
   getPersons() {
       return of([...this.persons]).pipe(delay(1000));

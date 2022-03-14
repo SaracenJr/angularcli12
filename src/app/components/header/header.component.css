@@ -1,0 +1,18 @@
+#menu{
+    position: absolute;
+    margin: 14px;
+    right: 0;
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+.flex{
+    display: flex;
+}
+.headerInfo{
+    text-align: center;
+    margin: 1%;
+}
+#navigation{
+    width: 50%;
+}

@@ -31,11 +31,8 @@ export class EditUserShellComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        if(!this.authService.checkLoggedUser()){
-            this.router.navigate(['login']);
-        }
-        this.routeSub = this.route.params.subscribe(params => {
 
+        this.routeSub = this.route.params.subscribe(params => {
             this.personService.getPersonById(params['id']).subscribe(person => {
                 this.person = person;
             });

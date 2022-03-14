@@ -6,6 +6,9 @@ import { RegistrationShellComponent } from './containers/registration-shell/regi
 import { LoginShellComponent } from './containers/login-shell/login-shell.component';
 import {SharedModule} from "../../shared/shared.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AuthShellComponent} from "../../containers/auth-shell/auth-shell.component";
+import {ToolbarComponent} from "../../components/toolbar/toolbar.component";
+import {AuthRoutingModule} from "./auth-routing.module";
 
 
 
@@ -14,18 +17,18 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         LoginComponent,
         RegistrationComponent,
         RegistrationShellComponent,
-        LoginShellComponent
+        LoginShellComponent,
+
+        //AuthShellComponent,
+        //ToolbarComponent
     ],
     imports: [
         CommonModule,
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
+        AuthRoutingModule,
     ],
-    exports: [
-        SharedModule,
-        RegistrationShellComponent,
-        LoginShellComponent
-    ]
+
 })
 export class AuthorizationModule { }

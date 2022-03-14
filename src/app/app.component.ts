@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./modules/authorization/services/auth.service";
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -8,16 +9,32 @@ import {AuthService} from "./modules/authorization/services/auth.service";
 })
 export class AppComponent implements OnInit{
     title = 'my';
+   // public loading = true;
+
     constructor(
-        public authService: AuthService
+        //public authService: AuthService,
+        private router: Router
     ) {
+        /*router.events.subscribe((routerEvent: RouterEvent) => {
+            this.checkRouterEvent(routerEvent);
+        });*/
     }
+/*
+    checkRouterEvent(routerEvent: RouterEvent): void {
+        if (routerEvent instanceof NavigationStart) {
+            this.loading = true;
+        }
+
+        if (routerEvent instanceof NavigationEnd ||
+            routerEvent instanceof NavigationCancel ||
+            routerEvent instanceof NavigationError) {
+            this.loading = false;
+        }
+        console.log('eve', routerEvent);
+    }*/
     ngOnInit() {
-      //  localStorage.setItem('users', JSON.stringify([]));
+        //  localStorage.setItem('users', JSON.stringify([]));
     }
-    checkHeader() : boolean {
-       // this.authService.getUser().subscribe(data => {return !!data});
-        return this.authService.getUser();
-    }
+
 
 }

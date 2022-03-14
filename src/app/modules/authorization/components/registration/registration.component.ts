@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit {
     checkPassword(FormGroup: FormGroup): ValidationErrors | null {
         let password = FormGroup.get('password').value;
         let confirm = FormGroup.get('confirmPassword').value;
-        return password === confirm ? null : {notMatch: true};
+        return password != confirm ? {notMatch: true} : null;
     }
 
 }

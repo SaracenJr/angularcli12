@@ -8,17 +8,16 @@ import {EditUserShellComponent} from "./modules/users/containers/edit-user-shell
 import {RegistrationShellComponent} from "./modules/authorization/containers/registration-shell/registration-shell.component";
 import {LoginShellComponent} from "./modules/authorization/containers/login-shell/login-shell.component";
 import {ExitEditPageGuard} from "./modules/users/exit-edit-page.guard";
+import {AuthGuard} from "./modules/authorization/services/auth.guard";
+import {AuthShellComponent} from "./containers/auth-shell/auth-shell.component";
+import {UsersShellComponent} from "./containers/users-shell/users-shell.component";
 
 
  const routes: Routes = [
-    { path: '', redirectTo: '/registration', pathMatch: 'full'},
-    {path: 'home', redirectTo: '/Users', pathMatch: 'full' },
-    { path: 'Users', component: UsersListShellComponent },
-    { path: 'New-UserInterface', component: NewUserShellComponent },
-    { path: 'Vehicles', component: VehicleListShellComponent },
-    { path: 'Edit-UserInterface/:id', component: EditUserShellComponent, canDeactivate:[ExitEditPageGuard] },
-    { path: 'registration', component: RegistrationShellComponent},
-    { path: 'login', component: LoginShellComponent}
+     { path: 'Auth', component: AuthShellComponent},
+     { path: 'Users', component: UsersShellComponent, canActivate: [AuthGuard], loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule) },
+     { path: 'Vehicles', component: VehicleListShellComponent, canActivate: [AuthGuard], loadChildren: () => import('./modules/vehicles/vehicles.module').then(m => m.VehiclesModule) },
+     { path: '', redirectTo: 'Auth', pathMatch: 'full'}
 ];
 
 @NgModule({

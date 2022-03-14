@@ -10,18 +10,18 @@
         <p>
             <mat-form-field appearance="fill">
                 <mat-label for="password"> Password:</mat-label>
-                <input matInput type="number" id="password" name="password"  formControlName="password" required />
+                <input matInput type="password" id="password" name="password"  formControlName="password" required />
                 <mat-error *ngIf="registrationForm.get('passwordGroup').get('password').invalid">Password is required</mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field appearance="fill" >
                 <mat-label for="confirmPassword"> Confirm Password:</mat-label>
-                <input matInput type="number" id="confirmPassword" name="confirmPassword"  formControlName="confirmPassword" required />
+                <input matInput type="password" id="confirmPassword" name="confirmPassword"  formControlName="confirmPassword" required />
                 <mat-error *ngIf="registrationForm.get('passwordGroup').get('confirmPassword').errors?.required">Confirm Password is required</mat-error>
             </mat-form-field>
         </p>
-        <mat-error *ngIf="registrationForm.get('passwordGroup').invalid">confirm</mat-error>
+        <mat-error *ngIf="registrationForm.get('passwordGroup').invalid">confirmed password must be equal to password</mat-error>
     </ng-container>
 
 </form>

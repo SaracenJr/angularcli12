@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../modules/authorization/services/auth.service";
-import {Router} from "@angular/router";
+import {Router, RouterEvent, Event, NavigationStart, NavigationEnd} from "@angular/router";
+
 
 @Component({
   selector: 'app-header',
@@ -8,16 +9,38 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+    public title: string;
+    public userName: string ;
+    public id: string;
 
   constructor(
       public authService: AuthService,
-      private router: Router,
-  ) { }
+      public router: Router,
+  ) {
+      router.events.subscribe((routerEvent: RouterEvent) => {
+          if (routerEvent instanceof NavigationEnd) {
+              this.createTitle();
+          }
+      });
+  }
 
   ngOnInit(): void {
+      this.createUserName();
   }
+
   quit(){
-      this.authService.removeUser();
-      this.router.navigate(['login']);
+      this.authService.removeLoggedUser().subscribe(_ => {
+          this.router.navigate(['login']);
+      });
+  }
+  createTitle(){
+        this.title = this.router.routerState.snapshot.url.slice(1);
+  }
+  createUserName(){
+        this.authService.getLoggedUser().subscribe((user) => {
+            if(user.name){
+                this.userName = user.name;
+            }
+        })
   }
 }

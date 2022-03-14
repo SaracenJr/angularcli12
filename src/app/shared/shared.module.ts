@@ -10,13 +10,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { FullnamePipe } from './pipes/fullname.pipe';
 
 
 //import {MaterialModule} from '../material/material.module';
 
 @NgModule({
     declarations: [
-        ComponentCardComponent
+        ComponentCardComponent,
+        FullnamePipe
     ],
     imports: [
         CommonModule,

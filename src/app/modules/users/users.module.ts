@@ -22,6 +22,10 @@ import { InfoUserShellComponent } from './containers/info-user-shell/info-user-s
 import { CompanyInfoUserShellComponent } from './containers/company-info-user-shell/company-info-user-shell.component';
 import { PersonalInfoUserShellComponent } from './containers/personal-info-user-shell/personal-info-user-shell.component';
 import { ContactsInfoUserShellComponent } from './containers/contacts-info-user-shell/contacts-info-user-shell.component';
+import { UsersTablesShellComponent } from './containers/users-tables-shell/users-tables-shell.component';
+import { UsersTablesComponent } from './components/users-tables/users-tables.component';
+import { UsersFrontTablesShellComponent } from './containers/users-front-tables-shell/users-front-tables-shell.component';
+import { UsersBackTablesShellComponent } from './containers/users-back-tables-shell/users-back-tables-shell.component';
 //import {AppRoutingModule} from "../../app-routing.module";
 
 //import {MaterialModule} from '../../material/material.module';
@@ -42,6 +46,10 @@ import {HttpClientModule} from '@angular/common/http';*/
         CompanyInfoUserShellComponent,
         PersonalInfoUserShellComponent,
         ContactsInfoUserShellComponent,
+        UsersTablesShellComponent,
+        UsersTablesComponent,
+        UsersFrontTablesShellComponent,
+        UsersBackTablesShellComponent,
 
 
     ],

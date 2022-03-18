@@ -25,6 +25,6 @@ export class ComponentCardComponent implements OnInit {
     goto(
         id: string
     ): void {
-        this.router.navigate(['/Edit-UserInterface', id ]);
+        this.router.navigate(['/Edit-User', id ]);
     }
 }

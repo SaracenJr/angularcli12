@@ -18,7 +18,7 @@ export class PersonService {
         {firstName:'qwerty', lastName: 'qwer', age: 16, company: 'qwerterfty', department: 'qwert', gender: 'male', email: 'refff@gmail.com', activated: false, addresses: [{addressLine: 'lkjhgfd', city: '', zip: ''}], id: '3'}
     ]
 
-    public Users  = this.getUsersFromServer().pipe();
+    public Users = this.getUsersFromServer().pipe();
 
   constructor(
       public httpService: HttpService,
@@ -26,7 +26,7 @@ export class PersonService {
 
     public getUsersFromServer(options?): Observable<IRandomUser[]> {
         const queryParams = {
-            results: options ? options.results : 5,
+            results: options ? options.results : 50,
             //inc: 'gender,name,location,email,dob,picture',
             seed: 'users',
             page: options ? options.page : 1
@@ -41,9 +41,35 @@ export class PersonService {
             )
     }
 
-    public getUsers(){
-      return of(this.Users).pipe();
+
+
+    public fields = {
+        'fullName': (a,b,isAsc) => PersonService.compare(a.name.last, b.name.last, isAsc),
+        'email': (a,b,isAsc) => PersonService.compare(a.email, b.email, isAsc),
+        'age':  (a,b,isAsc) => PersonService.compare(a.dob.age, b.dob.age, isAsc),
+        'department': (a,b,isAsc) => PersonService.compare(a.location.city, b.location.city, isAsc),
     }
+
+    public getSortUsers(data): Observable<IRandomUser[]>{
+        if (!data.active || data.direction === '') {
+            return this.Users;
+        }
+        return this.Users.pipe(
+            map(users => {
+                return users.sort((a, b) => {
+                    const isAsc = data.direction === 'asc';
+                    return this.fields[data.active](a,b,isAsc);
+                })
+        })
+        )
+    }
+    static compare(a: number | string, b: number | string, isAsc: boolean): number {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+
+   /* public getUsers(){
+      return of(this.Users).pipe();
+    }*/
  /*   public getUserById(id: string){
       return of(this.Users).pipe(
           delay(500),

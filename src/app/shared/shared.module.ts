@@ -11,6 +11,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { FullnamePipe } from './pipes/fullname.pipe';
+import {MatTableModule} from "@angular/material/table";
+import {CdkTableModule} from "@angular/cdk/table";
+import {MatSortModule} from "@angular/material/sort";
 
 
 //import {MaterialModule} from '../material/material.module';
@@ -29,7 +32,10 @@ import { FullnamePipe } from './pipes/fullname.pipe';
         MatIconModule,
         MatRadioModule,
         MatChipsModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSortModule,
+        CdkTableModule,
+        MatTableModule,
       //  MaterialModule,
 
     ],
@@ -42,8 +48,12 @@ import { FullnamePipe } from './pipes/fullname.pipe';
         MatIconModule,
         MatRadioModule,
         MatChipsModule,
-        MatPaginatorModule
-       // MaterialModule,
+        MatPaginatorModule,
+        MatSortModule,
+        CdkTableModule,
+        MatTableModule,
+        FullnamePipe,
+        // MaterialModule,
     ]
 })
 export class SharedModule { }

@@ -1,15 +1,16 @@
-import {Component, OnInit, QueryList} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChild} from '@angular/core';
 
 import {PersonService} from "../../services/person.service";
 import {ICard} from "../../../../shared/components/component-card/interfaces/card.interface";
 import {FavoriteService} from "../../../../shared/services/favorite.service";
-import {fromEvent, Observable, of} from "rxjs";
+import {fromEvent, merge, Observable, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 import {IPerson} from "../../interfaces/person.interface";
 import {HttpService} from "../../services/http.service";
 import {IRandomUser} from "../../interfaces/randomUser.interface";
 import {AuthService} from "../../../authorization/services/auth.service";
 import {Router} from "@angular/router";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 
 //const searchBox = document.getElementById('search');
 
@@ -23,13 +24,16 @@ import {Router} from "@angular/router";
     styleUrls: ['./users-list-shell.component.css'],
 })
 export class UsersListShellComponent implements OnInit {
+    @ViewChild(MatPaginator) public paginator: MatPaginator;
 
    // public cards: ICard[] = [];
     //public users : IRandomUser[] = [];
     public usersCards : ICard[] = [];
     public favoritePersons : ICard[] = [];
     public isFiltered : boolean = false;
-    public totalSize: Observable<number>
+    public length: Observable<number>
+    public userCardsPerPage: Observable<ICard[]>;
+    public pageIndex : number = 0;
 
     constructor(
         public personService: PersonService,
@@ -41,17 +45,24 @@ export class UsersListShellComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.personService.Users.subscribe(users => {
-            console.log(users);
+            this.userCardsPerPage = merge(
+                this.personService.getUsersFromServer()
+            ).pipe(
+                map(users => {
+                    return this.mapUsersToCards(users).slice(0,5);
 
-            users.forEach((user) => {
-                this.createUserCard(user);
-            })
-        })
-        this.totalSize = this.personService.Users.pipe(
-            map(users => users.length)
-        )
+                })
+            )
+            this.length = this.personService.Users.pipe(
+                map(users => users.length)
+            )
+}
 
+    /*this.personService.Users.subscribe(users => {
+                users.forEach(user => {
+                    this.createUserCard(user)
+                })
+            })*/
                 /*this.favoriteService.getFavorites().subscribe(data => {
                     data.forEach((fav) => {
                         if (fav.type === 'person') {
@@ -90,7 +101,7 @@ export class UsersListShellComponent implements OnInit {
                 distinctUntilChanged(),
                 switchMap(fakeContinentsRequest),
             ).subscribe();*/
-    }
+
 
 /*    createCard(person : IPerson): void{
         let card : ICard = {
@@ -115,6 +126,31 @@ export class UsersListShellComponent implements OnInit {
         };
         this.usersCards.push(card);
     }
+
+    public mapUsersToCards(users: IRandomUser[]): ICard[] {
+        return users.map((user) => ({
+            firstName: user.name.first,
+            lastName: user.name.last,
+            subtitle: ''+user.picture.large,
+            firstContent: user.location.city,
+            secondContent: user.phone,
+            id: user.id.value
+        }));
+    }
+
+    public onPaginationChange(event: PageEvent): void {
+        const requestOptions = {
+            results: event.pageSize,
+            page: event.pageIndex + 1
+        }
+
+        this.userCardsPerPage = this.personService.getUsersFromServer(requestOptions).pipe(
+            map(users => {
+                return this.mapUsersToCards(users);
+            }),
+        );
+    }
+
 
 
     /*addFavorite(id: number) : void{

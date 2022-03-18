@@ -1,0 +1,30 @@
+<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="fullName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> fullName </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.fullName | fullname}} </mat-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> email </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.email}}% </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="age">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> age </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.age}} </mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="department">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> department </mat-header-cell>
+        <mat-cell *matCellDef="let row" > {{row.department}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+</mat-table>

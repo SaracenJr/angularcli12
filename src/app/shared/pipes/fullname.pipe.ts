@@ -7,10 +7,10 @@ import {ICard} from "../components/component-card/interfaces/card.interface";
 export class FullnamePipe implements PipeTransform {
 
   transform(
-      card: ICard,
+      name: string,
       ...args: any): string {
 
-    return card.firstName +', '+ card.lastName;
+    return name.split(', ')[1] + ' ' + name.split(', ')[0];
   }
 
 }

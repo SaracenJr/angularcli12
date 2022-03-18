@@ -1,7 +1,7 @@
 <mat-card class="example-card">
     <mat-card-header>
         <mat-card-title class="title">
-            {{ card | fullname }}
+            {{ card.firstName + ' ' + card.lastName }}
         </mat-card-title>
         <mat-card-subtitle>
             <img mat-card-image class="user-image" src="{{card?.subtitle}}">

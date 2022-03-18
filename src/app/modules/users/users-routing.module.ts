@@ -11,25 +11,42 @@ import {InfoUserShellComponent} from "./containers/info-user-shell/info-user-she
 import {CompanyInfoUserShellComponent} from "./containers/company-info-user-shell/company-info-user-shell.component";
 import {PersonalInfoUserShellComponent} from "./containers/personal-info-user-shell/personal-info-user-shell.component";
 import {ContactsInfoUserShellComponent} from "./containers/contacts-info-user-shell/contacts-info-user-shell.component";
+import {UsersTablesShellComponent} from "./containers/users-tables-shell/users-tables-shell.component";
 
 const routes: Routes = [
-    {path: '', component: UsersShellComponent, children: [
-            { path: 'Users', component: UsersListShellComponent, canActivate: [AuthGuard]},
-            { path: 'New-User', component: NewUserShellComponent, canActivate: [AuthGuard]},
-            { path: 'Edit-User/:id', component: EditUserShellComponent, canDeactivate:[ExitEditPageGuard], canActivate: [AuthGuard] },
-            { path: 'Info-User/:id', component: InfoUserShellComponent, canActivate: [AuthGuard], children: [
-                    { path: 'company-info', component: CompanyInfoUserShellComponent},
-                    { path: 'personal-info', component: PersonalInfoUserShellComponent},
-                    { path: 'contacts-info', component: ContactsInfoUserShellComponent},
+    //{path: '', component: UsersShellComponent, children: [
+            { path: 'Users',
+                component: UsersListShellComponent,
+                canActivate: [AuthGuard]},
+            {path: 'Table',
+                component: UsersTablesShellComponent,
+                canActivate: [AuthGuard]},
+            { path: 'New-User',
+                component: NewUserShellComponent,
+                canActivate: [AuthGuard]},
+            { path: 'Edit-User/:id',
+                component: EditUserShellComponent,
+                canDeactivate:[ExitEditPageGuard],
+                canActivate: [AuthGuard] },
+            { path: 'Info-User/:id',
+                component: InfoUserShellComponent,
+                canActivate: [AuthGuard],
+                children: [
+                    { path: 'company-info',
+                        component: CompanyInfoUserShellComponent},
+                    { path: 'personal-info',
+                        component: PersonalInfoUserShellComponent},
+                    { path: 'contacts-info',
+                        component: ContactsInfoUserShellComponent},
                 ]},
             {path: '', redirectTo: 'Users', pathMatch: 'full'}
-        ]},
+     //   ]},
 
    // {path: '', redirectTo: 'Users', pathMatch: 'full'},
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 export class UsersRoutingModule { }

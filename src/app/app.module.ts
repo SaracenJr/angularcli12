@@ -5,11 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {UsersModule} from './modules/users/users.module';
+//import {UsersModule} from './modules/users/users.module';
 import {SharedModule} from './shared/shared.module';
 
 //import {MaterialModule} from './material/material.module';
-import {VehiclesModule} from "./modules/vehicles/vehicles.module";
+//import {VehiclesModule} from "./modules/vehicles/vehicles.module";
 
 import { HttpClientModule } from '@angular/common/http';
 import {AuthorizationModule} from "./modules/authorization/authorization.module";
@@ -20,6 +20,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AuthShellComponent } from './containers/auth-shell/auth-shell.component';
 import {UsersShellComponent} from "./containers/users-shell/users-shell.component";
 import {FullnamePipe} from "./shared/pipes/fullname.pipe";
+import {MatSortModule} from "@angular/material/sort";
 
 //import { UsersShellComponent } from './containers/users-shell/users-shell.component';
 //import { ComponentCardComponent } from './shared/components/components-card/components-card.components';
@@ -42,16 +43,16 @@ import {FullnamePipe} from "./shared/pipes/fullname.pipe";
         BrowserModule,
         //AppRoutingModule,
         BrowserAnimationsModule,
-        UsersModule,
-        VehiclesModule,
+        //UsersModule,
+        //VehiclesModule,
         SharedModule,
         HttpClientModule,
         AuthorizationModule,
-        AppRoutingModule
+        AppRoutingModule,
        // MaterialModule,
     ],
     exports: [
-        SharedModule
+        SharedModule,
       //  MaterialModule,
     ],
     providers: [],

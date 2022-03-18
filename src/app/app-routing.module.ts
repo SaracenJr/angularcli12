@@ -14,9 +14,16 @@ import {UsersShellComponent} from "./containers/users-shell/users-shell.componen
 
 
  const routes: Routes = [
-     { path: 'Auth', component: AuthShellComponent},
-     { path: 'Users', component: UsersShellComponent, canActivate: [AuthGuard], loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule) },
-     { path: 'Vehicles', component: VehicleListShellComponent, canActivate: [AuthGuard], loadChildren: () => import('./modules/vehicles/vehicles.module').then(m => m.VehiclesModule) },
+     { path: 'Auth',
+         component: AuthShellComponent},
+     { path: 'Users',
+         component: UsersShellComponent,
+         canActivate: [AuthGuard],
+         loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule) },
+     { path: 'Vehicles',
+         component: VehicleListShellComponent,
+         canActivate: [AuthGuard],
+         loadChildren: () => import('./modules/vehicles/vehicles.module').then(m => m.VehiclesModule) },
      { path: '', redirectTo: 'Auth', pathMatch: 'full'}
 ];
 

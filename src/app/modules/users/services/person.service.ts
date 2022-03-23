@@ -33,15 +33,13 @@ export class PersonService {
         }
 
         return this.httpService
-            .get('', {params: queryParams})
+            .get('', { params: queryParams })
             .pipe(
-                map(response =>
+                map((response) =>
                     response['results'],
-            )
+                )
             )
     }
-
-
 
     public fields = {
         'fullName': (a,b,isAsc) => PersonService.compare(a.name.last, b.name.last, isAsc),
@@ -50,22 +48,25 @@ export class PersonService {
         'department': (a,b,isAsc) => PersonService.compare(a.location.city, b.location.city, isAsc),
     }
 
-    public getSortUsers(data): Observable<IRandomUser[]>{
-        if (!data.active || data.direction === '') {
+    public getSortUsers(data): Observable<IRandomUser[]> {
+        if ( !data || !data.active || data.direction === '') {
             return this.Users;
         }
         return this.Users.pipe(
             map(users => {
+
                 return users.sort((a, b) => {
                     const isAsc = data.direction === 'asc';
-                    return this.fields[data.active](a,b,isAsc);
+                    return this.fields[data.active](a, b, isAsc);
                 })
-        })
+            })
         )
     }
+
     static compare(a: number | string, b: number | string, isAsc: boolean): number {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
+
 
    /* public getUsers(){
       return of(this.Users).pipe();

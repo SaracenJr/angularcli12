@@ -33,7 +33,9 @@ export class AppComponent implements OnInit{
         console.log('eve', routerEvent);
     }*/
     ngOnInit() {
-        //  localStorage.setItem('users', JSON.stringify([]));
+        if(!localStorage.getItem('users')){
+            localStorage.setItem('users', JSON.stringify([]));
+        }
     }
 
 

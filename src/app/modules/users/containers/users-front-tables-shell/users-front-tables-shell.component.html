@@ -1,10 +1,7 @@
 <div class="example-container mat-elevation-z8">
 
-    <app-users-tables [displayedColumns]="displayedColumns"
-                      [dataSource]="dataSource"
-                      [tableType]="type">
-    </app-users-tables>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <app-users-front-tables
+                      [users]="users ">
+    </app-users-front-tables>
 </div>
 

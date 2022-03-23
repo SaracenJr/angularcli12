@@ -1,9 +1,11 @@
-<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+<mat-table [dataSource]="dataSource"
+           matSort
+           (matSortChange)="sortData($event)">
 
     <!-- ID Column -->
     <ng-container matColumnDef="fullName">
         <mat-header-cell *matHeaderCellDef mat-sort-header> fullName </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.fullName | fullname}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.lastName | fullname: row.firstName}} </mat-cell>
     </ng-container>
 
     <!-- Progress Column -->
@@ -28,3 +30,10 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;">
     </mat-row>
 </mat-table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+               [pageSize]="pageSize"
+               [pageIndex]="pageIndex"
+               [length]="totalSize"
+               (page)="onPaginationChange($event)"
+></mat-paginator>

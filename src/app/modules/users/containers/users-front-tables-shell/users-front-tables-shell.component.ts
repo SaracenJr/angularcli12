@@ -7,12 +7,12 @@ import {map} from "rxjs/operators";
 import {IRandomUser} from "../../interfaces/randomUser.interface";
 
 export interface UserData {
-    fullName: string,
+    firstName: string,
+    lastName: string,
     email: string,
     age: string,
     department: string
 }
-
 
 @Component({
   selector: 'app-users-front-tables-shell',
@@ -20,17 +20,11 @@ export interface UserData {
   styleUrls: ['./users-front-tables-shell.component.css']
 })
 export class UsersFrontTablesShellComponent implements AfterViewInit {
-    public displayedColumns : string[] = ['fullName', 'email', 'age', 'department'];
-    public users : Observable<UserData[]>;
-    public dataSource: MatTableDataSource<UserData>;
-    public type : string = 'front';
+    public users : UserData[];
 
-    // @ViewChild(MatSort, { static: false }) sort: MatSort;
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-
-  constructor(
-      public personService: PersonService,
-  ) { }
+    constructor(
+        public personService: PersonService,
+    ) { }
 
     ngAfterViewInit () : void{
         this.personService
@@ -38,16 +32,16 @@ export class UsersFrontTablesShellComponent implements AfterViewInit {
             .pipe(
                 map((users) => this.mapUsersToTable(users))
             )
-            .subscribe((users) => {
-                this.dataSource = new MatTableDataSource(users);
-                this.dataSource.paginator = this.paginator;
-            })
-
+            .subscribe(
+                (users) => {
+                    this.users = users;
+                }
+            )
     }
-
     mapUsersToTable(users : IRandomUser[]) : UserData[]{
         return users.map((user) => ({
-            fullName: user.name.last + ', ' + user.name.first,
+            firstName: user.name.first,
+            lastName: user.name.last,
             email: user.email,
             age: user.dob.age,
             department: user.location.city

@@ -1,10 +1,11 @@
 <div class="example-container mat-elevation-z8">
 
-    <app-users-tables [displayedColumns]="displayedColumns"
-                      [dataSource]="dataSource"
-                      [tableType]="type"
+    <app-users-back-tables
+                      [users]="users"
+                      [totalSize]="totalSize "
+                      [pageSize]="pageSize "
+                      [pageIndex]="pageIndex"
+                      (pageEvent)="onPaginationChange($event)"
                       (sortEvent)="backSortUsers($event)">
-   </app-users-tables>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+   </app-users-back-tables>
 </div>
